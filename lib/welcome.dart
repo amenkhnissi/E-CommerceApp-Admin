@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'Widget/FadeAnimation.dart';
+import './views/Widget/FadeAnimation.dart';
+
+
+
+
 
 class WelcomePage extends StatefulWidget {
   @override

@@ -9,6 +9,12 @@ class AuthService {
     return user != null ?  Admin(uid: user.uid,email: user.email) : null;
   }
 
+// auth change user stream
+  Stream<Admin> get user {
+    return _auth.onAuthStateChanged
+      //.map((FirebaseUser user) => _userFromFirebaseUser(user));
+      .map(_userFromFirebaseUser);
+  }
   // sign in with email and password
 
   Future signInWithEmailAndPassword(String email, String password) async {

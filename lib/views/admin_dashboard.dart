@@ -1,7 +1,10 @@
+import 'package:admin_panel/models/admin.dart';
 import 'package:admin_panel/services/edit_carousel.dart';
 import 'package:admin_panel/services/edit_product_category.dart';
+import 'package:admin_panel/views/admin_login.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/database/authentication.dart';
+import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -10,10 +13,9 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard>
     with SingleTickerProviderStateMixin {
+  final AuthService _auth = AuthService();
 
-        final AuthService _auth = AuthService();
-
-        TabController adminTab;
+  TabController adminTab;
 
   @override
   void initState() {
@@ -28,6 +30,7 @@ class _DashboardState extends State<Dashboard>
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Admin>(context);
 
     // Edit Carousel
 
@@ -52,8 +55,9 @@ class _DashboardState extends State<Dashboard>
             );
           });
     }
-    
-    return Scaffold(
+    print(user.uid);
+    print(user.email);
+    return user == null ? Login() : Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromRGBO(100, 100, 50, 100),
           centerTitle: true,
@@ -101,72 +105,82 @@ class _DashboardState extends State<Dashboard>
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  color: Colors.transparent,
-                  // Admin Settings List
-                  child: ListView(children: <Widget>[
-                    // Add carousel Images
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: (){
-                        _EditCarousel();
-                        },
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color:Colors.black38,
-                            borderRadius: BorderRadius.circular(20.0)
-                          ),
-                          child: ListTile(
-                            leading: Icon(Icons.add_a_photo,color: Colors.black,),
-                            title: Text('Add Carousel Fashion Images',style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Add Product category
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: (){
-                        _EditProductCategory();
-                        },
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color:Colors.black38,
-                            borderRadius: BorderRadius.circular(20.0)
-                          ),
-                          child: ListTile(
-                            leading: Icon(Icons.add_a_photo,color: Colors.black,),
-                            title: Text('Add Poduct category',style: TextStyle(fontWeight: FontWeight.bold)),
+                    color: Colors.transparent,
+                    // Admin Settings List
+                    child: ListView(
+                      children: <Widget>[
+                        // Add carousel Images
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              _EditCarousel();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black38,
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.add_a_photo,
+                                  color: Colors.black,
+                                ),
+                                title: Text('Add Carousel Fashion Images',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () async {
-                         await _auth.signOut();
-                         Navigator.pushReplacementNamed(context, 'login');
-                        },
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color:Colors.black38,
-                            borderRadius: BorderRadius.circular(20.0)
-                          ),
-                          child: ListTile(
-                            leading: Icon(Icons.supervised_user_circle,color: Colors.black,),
-                            title: Text('Sign Out',style: TextStyle(fontWeight: FontWeight.bold)),
+                        // Add Product category
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              _EditProductCategory();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black38,
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.add_a_photo,
+                                  color: Colors.black,
+                                ),
+                                title: Text('Add Poduct category',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  
-                  
-                  
-                  ],)
-                ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () async {
+                              await _auth.signOut();
+                              Navigator.pushReplacementNamed(context, 'login');
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black38,
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.supervised_user_circle,
+                                  color: Colors.black,
+                                ),
+                                title: Text('Sign Out',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
               ),
             ],
           ),

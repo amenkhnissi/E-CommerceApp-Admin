@@ -169,7 +169,7 @@ packages:
       name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.11"
+    version: "4.0.1"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -240,6 +240,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   path:
     dependency: transitive
     description:
@@ -268,6 +275,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.5+1"
   quiver:
     dependency: transitive
     description:
@@ -281,7 +295,7 @@ packages:
       name: sa_anicoto
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.2"
   sa_multi_tween:
     dependency: transitive
     description:
@@ -295,14 +309,14 @@ packages:
       name: sa_stateless_animation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   sa_v1_migration:
     dependency: transitive
     description:
       name: sa_v1_migration
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   simple_animations:
     dependency: "direct main"
     description:
