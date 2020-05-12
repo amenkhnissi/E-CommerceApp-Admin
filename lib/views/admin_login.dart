@@ -188,7 +188,7 @@ class _LoginState extends State<Login> {
                                               'Could not sign in with those credentials';
                                         });
                                       } else {
-                                        Navigator.pushReplacementNamed(
+                                        Navigator.pushNamed(
                                             context, 'dashboard');
                                       }
                                     }

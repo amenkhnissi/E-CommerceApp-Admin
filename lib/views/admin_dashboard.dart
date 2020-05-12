@@ -1,7 +1,7 @@
 import 'package:admin_panel/models/admin.dart';
 import 'package:admin_panel/services/edit_carousel.dart';
 import 'package:admin_panel/services/edit_product_category.dart';
-import 'package:admin_panel/views/admin_login.dart';
+import 'package:admin_panel/services/edit_products.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/database/authentication.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +32,7 @@ class _DashboardState extends State<Dashboard>
   Widget build(BuildContext context) {
     final user = Provider.of<Admin>(context);
 
-    // Edit Carousel
+    // Add Carousel images
 
     void _EditCarousel() {
       showModalBottomSheet(
@@ -44,7 +44,7 @@ class _DashboardState extends State<Dashboard>
             );
           });
     }
-
+    // Add Product Category
     void _EditProductCategory() {
       showModalBottomSheet(
           context: context,
@@ -55,9 +55,8 @@ class _DashboardState extends State<Dashboard>
             );
           });
     }
-    print(user.uid);
-    print(user.email);
-    return user == null ? Login() : Scaffold(
+  
+    return  Scaffold(
       appBar: AppBar(
           backgroundColor: Color.fromRGBO(100, 100, 50, 100),
           centerTitle: true,
@@ -66,6 +65,36 @@ class _DashboardState extends State<Dashboard>
             Icon(Icons.dashboard),
             Icon(Icons.settings_applications),
           ])),
+         drawer: Drawer(
+           child :  ListView(
+               children: <Widget>[
+
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color:Color.fromRGBO(100, 100, 50, 100),
+                ),
+                 accountName: Text('Admin'),
+                 accountEmail: Text(user.email),
+                 currentAccountPicture: CircleAvatar(
+                   backgroundImage: AssetImage('assets/avatar.png') ,
+                   backgroundColor: Colors.transparent,
+                 ),
+                 ),
+                 InkWell(
+                   onTap: () async {
+                              await _auth.signOut();
+                              Navigator.pushReplacementNamed(context, 'login');
+                   },
+                      child: ListTile(
+                     leading: Icon(Icons.supervised_user_circle),
+                     title: Text('Sign Out'),
+                   ),
+                 ),
+
+
+            ],), 
+         ),
+         
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -108,6 +137,7 @@ class _DashboardState extends State<Dashboard>
                     color: Colors.transparent,
                     // Admin Settings List
                     child: ListView(
+                      physics: BouncingScrollPhysics(),
                       children: <Widget>[
                         // Add carousel Images
                         Padding(
@@ -148,20 +178,24 @@ class _DashboardState extends State<Dashboard>
                                   Icons.add_a_photo,
                                   color: Colors.black,
                                 ),
-                                title: Text('Add Poduct category',
+                                title: Text('Add Product category',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                             ),
                           ),
                         ),
-
+                        // Add Product
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
-                            onTap: () async {
-                              await _auth.signOut();
-                              Navigator.pushReplacementNamed(context, 'login');
+                            onTap: () {
+                             showDialog(context: context,
+                             builder: (context){
+                               return EditProducts();
+                             }
+                             );
+                             
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -169,16 +203,18 @@ class _DashboardState extends State<Dashboard>
                                   borderRadius: BorderRadius.circular(20.0)),
                               child: ListTile(
                                 leading: Icon(
-                                  Icons.supervised_user_circle,
+                                  Icons.add_a_photo,
                                   color: Colors.black,
                                 ),
-                                title: Text('Sign Out',
+                                title: Text('Add Product',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                             ),
                           ),
                         ),
+
+                        
                       ],
                     )),
               ),

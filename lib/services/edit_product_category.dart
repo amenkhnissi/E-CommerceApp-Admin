@@ -15,6 +15,7 @@ class EditProductCategory extends StatefulWidget {
 class _EditProductCategoryState extends State<EditProductCategory> {
 
   final GlobalKey<FormState> _productKey = GlobalKey<FormState>();
+  
   ProductsServices _product = ProductsServices();
   String category;
   File _image;

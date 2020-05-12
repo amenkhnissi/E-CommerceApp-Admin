@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './views/Widget/FadeAnimation.dart';
+import 'package:provider/provider.dart';
+import 'package:admin_panel/models/admin.dart';
 
 
 
@@ -16,6 +18,8 @@ class _WelcomePageState extends State<WelcomePage>
 
   @override
   Widget build(BuildContext context) {
+      final user = Provider.of<Admin>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
           home: Scaffold(
@@ -64,7 +68,7 @@ class _WelcomePageState extends State<WelcomePage>
                         padding: const EdgeInsets.only(bottom: 20),
                         child: InkWell(
                           onTap: () =>
-                              Navigator.pushNamed(context,'login' ),
+                              Navigator.pushNamed(context, user == null ? 'login' : 'dashboard' ),
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(

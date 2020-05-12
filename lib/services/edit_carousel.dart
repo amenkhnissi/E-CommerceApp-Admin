@@ -14,6 +14,8 @@ class _EditCarouselState extends State<EditCarousel> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Image picker
     Future getImage() async {
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
