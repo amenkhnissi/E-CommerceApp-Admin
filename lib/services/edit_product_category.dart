@@ -1,5 +1,6 @@
 import 'package:admin_panel/database/products.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
@@ -43,10 +44,9 @@ class _EditProductCategoryState extends State<EditProductCategory> {
         _imagelink = imageUrl;
         
       });
-      print(_imagelink);
        _product.createCategory(category,_imagelink);
-       Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text('Picture Uploaded')));
+       Fluttertoast.showToast(msg: 'Successfully uploaded ');
+      
       Navigator.pop(context);
     }
 
@@ -55,7 +55,7 @@ class _EditProductCategoryState extends State<EditProductCategory> {
         resizeToAvoidBottomPadding: false,
         resizeToAvoidBottomInset: false,
         body: Builder(
-          builder: (context) => Column(
+          builder: (context) => ListView(
             children: <Widget>[
               ListTile(
                 leading: Padding(
@@ -99,7 +99,7 @@ class _EditProductCategoryState extends State<EditProductCategory> {
               Center(
                 child: _image == null
                     ? Text('No image selected.')
-                    : Image.file(_image),
+                    : Image.file(_image,height: 150.0,),
               ),
               
             ],

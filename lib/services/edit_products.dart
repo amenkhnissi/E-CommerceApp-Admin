@@ -189,10 +189,7 @@ class _ProductScreenBottomPartState extends State<ProductScreenBottomPart> {
                   children: <Widget>[
                     Container(
                       child: _image == null
-                          ? Image.asset("assets/adidas.png",
-                              width: double.infinity,
-                              height: double.infinity,
-                              fit: BoxFit.cover)
+                          ? Center(child: Text('Select product image'))
                           : Image.file(_image,
                               width: double.infinity,
                               height: double.infinity,
@@ -294,7 +291,7 @@ class _ProductScreenBottomPartState extends State<ProductScreenBottomPart> {
                           border: InputBorder.none,
                           hintText: "Product name",
                           icon: Icon(Icons.title),
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintStyle: TextStyle(color: Colors.white38),
                         ),
                         validator: (val) {
                           if (val.length > 20 || val.isEmpty)
@@ -536,12 +533,12 @@ class _ProductScreenBottomPartState extends State<ProductScreenBottomPart> {
                   child: TextFormField(
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Enter Product Price",
+                        hintText: "Enter product price",
                         icon: Icon(
                           Icons.attach_money,
                           color: Colors.white,
                         ),
-                        hintStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.white38),
                       ),
                       keyboardType: TextInputType.number,
                       validator: (val) {

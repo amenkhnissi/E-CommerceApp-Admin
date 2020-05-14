@@ -1,5 +1,7 @@
 import 'package:admin_panel/models/admin.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 class AuthService {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -8,7 +10,15 @@ class AuthService {
   Admin _userFromFirebaseUser(FirebaseUser user) {
     return user != null ?  Admin(uid: user.uid,email: user.email) : null;
   }
+   
+   // collection reference
+  final CollectionReference usersCollection = Firestore.instance.collection('users');
 
+  // Users Stream
+  Stream<QuerySnapshot> get users {
+    return usersCollection.snapshots();
+  }
+  
 // auth change user stream
   Stream<Admin> get user {
     return _auth.onAuthStateChanged
