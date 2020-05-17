@@ -175,12 +175,9 @@ class _LoginState extends State<Login> {
                                       dynamic result = await _auth
                                           .signInWithEmailAndPassword(
                                               email, password);
-                                      var user = result.uid;
 
                                      
 
-                                     
-                                      print(user);
                                       if (result == null) {
                                         setState(() {
                                           loading = false;

@@ -1,4 +1,4 @@
-import 'package:admin_panel/database/products.dart';
+import 'package:admin_panel/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,12 +8,12 @@ import 'package:path/path.dart';
 
 
 
-class EditProductCategory extends StatefulWidget {
+class AddProductCategory extends StatefulWidget {
   @override
-  _EditProductCategoryState createState() => _EditProductCategoryState();
+  _AddProductCategoryState createState() => _AddProductCategoryState();
 }
 
-class _EditProductCategoryState extends State<EditProductCategory> {
+class _AddProductCategoryState extends State<AddProductCategory> {
 
   final GlobalKey<FormState> _productKey = GlobalKey<FormState>();
   
@@ -34,8 +34,8 @@ class _EditProductCategoryState extends State<EditProductCategory> {
 
     Future uploadPic(BuildContext context) async {
       String fileName = basename(_image.path);
-      String carousel = "category";
-      StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(carousel).child(fileName);
+      String category = "category";
+      StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(category).child(fileName);
       StorageUploadTask uploadTask =
           firebaseStorageRef.putFile(_image);
       StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;

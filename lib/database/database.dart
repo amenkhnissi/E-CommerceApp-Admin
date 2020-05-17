@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:admin_panel/models/products.dart';
 
 class ProductsServices {
+
+      Firestore _fireStore = Firestore.instance;
+
 // Add Product category
   void createCategory(String name, String image) {
-    Firestore _fireStore = Firestore.instance;
 
     _fireStore.collection('product_category').add({
       "category name": name,
@@ -12,21 +15,28 @@ class ProductsServices {
   }
 
 // Add Product
-  void createProduct(String image, String name, String detail, List size,
-      int quantity, List color, String price) {
-    Firestore _fireStore = Firestore.instance;
+  void createProduct(Product product) {
 
     _fireStore.collection('products').add({
-      "Product image": image,
-      "product name": name,
-      "Product detail": detail,
-      "Product size": size,
-      "Product Quantity": quantity,
-      "Product Color": color,
-      "Product price": price,
+      "Product image":product.image,
+      "product name": product.name,
+      "Product detail": product.detail,
+      "Product size": product.size,
+      "Product Quantity": product.quantity,
+      "Product Color": product.color,
+      "Product price": product.price,
     });
   }
+  // Add carousol 
+  void addCarousel(String title,String description,String image){
+    _fireStore.collection('carousel').add({
+      'Title' : title,
+      'Description' : description,
+      'Image' : image,
+    });
+   
 
+  }
 // collection reference
   final CollectionReference productCollection =
       Firestore.instance.collection('products');

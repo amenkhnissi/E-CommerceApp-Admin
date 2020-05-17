@@ -1,13 +1,11 @@
-
 import 'package:admin_panel/models/admin.dart';
-import 'package:admin_panel/services/edit_carousel.dart';
-import 'package:admin_panel/services/edit_product_category.dart';
-import 'package:admin_panel/services/edit_products.dart';
+import 'package:admin_panel/services/add_carousel.dart';
+import 'package:admin_panel/services/add_categories.dart';
+import 'package:admin_panel/services/add_products.dart';
 import 'package:admin_panel/views/Widget/gridDashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_panel/database/authentication.dart';
 import 'package:provider/provider.dart';
-
 
 class Dashboard extends StatefulWidget {
   @override
@@ -37,25 +35,25 @@ class _DashboardState extends State<Dashboard>
 
     // Add Carousel images
 
-    void _EditCarousel() {
+    void _AddCarousel() {
       showModalBottomSheet(
           context: context,
           builder: (context) {
             return Padding(
               padding: const EdgeInsets.all(10.0),
-              child: EditCarousel(),
+              child: AddCarousel(),
             );
           });
     }
 
     // Add Product Category
-    void _EditProductCategory() {
+    void _AddProductCategory() {
       showModalBottomSheet(
           context: context,
           builder: (context) {
             return Padding(
               padding: const EdgeInsets.all(10.0),
-              child: EditProductCategory(),
+              child: AddProductCategory(),
             );
           });
     }
@@ -74,19 +72,19 @@ class _DashboardState extends State<Dashboard>
             centerTitle: true,
             title: Text('Dashboard'),
             bottom: TabBar(
-              controller: adminTab, 
-              isScrollable: true,
-              indicatorColor: Colors.white,
-              tabs: [
-              Icon(Icons.dashboard),
-              Icon(Icons.settings_applications),
-            ])),
+                controller: adminTab,
+                isScrollable: true,
+                indicatorColor: Colors.white,
+                tabs: [
+                  Icon(Icons.dashboard),
+                  Icon(Icons.settings_applications),
+                ])),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(100, 100, 50, 100),
+                  color: Colors.lightBlueAccent,
                 ),
                 accountName: Text('Admin'),
                 accountEmail: Text(user.email),
@@ -95,14 +93,44 @@ class _DashboardState extends State<Dashboard>
                   backgroundColor: Colors.transparent,
                 ),
               ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, 'Users List');
+                },
+                leading: Icon(
+                  Icons.list,
+                  color: Colors.black,
+                ),
+                title: Text('Users list'),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, 'Categories List');
+                },
+                leading: Icon(
+                  Icons.list,
+                  color: Colors.black,
+                ),
+                title: Text('Categories list'),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, 'Products List');
+                },
+                leading: Icon(
+                  Icons.list,
+                  color: Colors.black,
+                ),
+                title: Text('products list'),
+              ),
               InkWell(
                 onTap: () async {
                   await _auth.signOut();
                   Navigator.pushReplacementNamed(context, 'login');
-                  print(MediaQuery.of(context).size.height);
                 },
                 child: ListTile(
-                  leading: Icon(Icons.supervised_user_circle),
+                  leading:
+                      Icon(Icons.supervised_user_circle, color: Colors.black),
                   title: Text('Sign Out'),
                 ),
               ),
@@ -113,13 +141,12 @@ class _DashboardState extends State<Dashboard>
           controller: adminTab,
           children: [
             // Dashboard UI
-            
+
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: GridDashboard(),
             ),
-           
-          
+
             // Admin manage Store
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -134,7 +161,7 @@ class _DashboardState extends State<Dashboard>
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
                           onTap: () {
-                            _EditCarousel();
+                            _AddCarousel();
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -146,8 +173,9 @@ class _DashboardState extends State<Dashboard>
                                 color: Colors.black,
                               ),
                               title: Text('Add Carousel Fashion Images',
-                                  style:
-                                      TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                         ),
@@ -157,7 +185,7 @@ class _DashboardState extends State<Dashboard>
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
                           onTap: () {
-                            _EditProductCategory();
+                            _AddProductCategory();
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -169,8 +197,9 @@ class _DashboardState extends State<Dashboard>
                                 color: Colors.black,
                               ),
                               title: Text('Add Product category',
-                                  style:
-                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                         ),
@@ -183,7 +212,7 @@ class _DashboardState extends State<Dashboard>
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return EditProducts();
+                                  return AddProducts();
                                 });
                           },
                           child: Container(
@@ -196,8 +225,9 @@ class _DashboardState extends State<Dashboard>
                                 color: Colors.black,
                               ),
                               title: Text('Add Product',
-                                  style:
-                                      TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
                             ),
                           ),
                         ),

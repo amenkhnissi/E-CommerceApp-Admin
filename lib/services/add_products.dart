@@ -1,16 +1,17 @@
+import 'package:admin_panel/models/products.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import '../database/products.dart';
+import '../database/database.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class EditProducts extends StatefulWidget {
+class AddProducts extends StatefulWidget {
   @override
-  _EditProductsState createState() => new _EditProductsState();
+  _AddProductsState createState() => new _AddProductsState();
 }
 
-class _EditProductsState extends State<EditProducts> {
+class _AddProductsState extends State<AddProducts> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -168,9 +169,11 @@ class _ProductScreenBottomPartState extends State<ProductScreenBottomPart> {
           print(a);
         }
       });
-
-      _product.createProduct(_imagelink, productName, desc, selectedsize,
-          _counter, scolors, price);
+        _product.createProduct(Product(image:_imagelink,name: productName,detail: desc,size: selectedsize,
+        quantity: _counter,
+        color: scolors,
+        price: price
+           ));
           Fluttertoast.showToast(msg: 'Product succesfully Added',timeInSecForIosWeb: 2);
       Navigator.pop(context);
     }

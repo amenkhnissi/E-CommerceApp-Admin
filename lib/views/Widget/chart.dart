@@ -1,5 +1,5 @@
 import 'package:admin_panel/database/authentication.dart';
-import 'package:admin_panel/database/products.dart';
+import 'package:admin_panel/database/database.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -116,6 +116,7 @@ class PieChartSample1State extends State {
   }
 
   List<PieChartSectionData> showingSections() {
+    if(usersCount != null ){
     return List.generate(
       3,
       (i) {
@@ -124,12 +125,12 @@ class PieChartSample1State extends State {
         var total = usersCount+productsCount+categoriesCount;
         var users = usersCount/total*100;
         var products = productsCount/total*100;
-        var categories = productsCount/total*100;
+        var categories = categoriesCount/total*100;
         switch (i) {
           case 0:
             return PieChartSectionData(
               color: const Color(0xff0293ee).withOpacity(opacity),
-              value:  usersCount+.0,
+              value: usersCount+.0,
               title: '${users.toInt()}'+'%',
               radius: 80,
               titleStyle: TextStyle(
@@ -139,7 +140,7 @@ class PieChartSample1State extends State {
           case 1:
             return PieChartSectionData(
               color: const Color(0xfff8b250).withOpacity(opacity),
-              value: productsCount+.0,
+              value:  productsCount+.0,
               title: '${products.toInt()}'+'%',
               radius: 65,
               titleStyle: TextStyle(
@@ -149,7 +150,7 @@ class PieChartSample1State extends State {
           case 2:
             return PieChartSectionData(
               color: const Color(0xff845bef).withOpacity(opacity),
-              value: categoriesCount+.0,
+              value:  categoriesCount+.0,
               title: '${categories.toInt()}'+'%',
               radius: 60,
               titleStyle: TextStyle(
@@ -161,5 +162,8 @@ class PieChartSample1State extends State {
         }
       },
     );
+    }else{
+      return null;
+    }
   }
 }

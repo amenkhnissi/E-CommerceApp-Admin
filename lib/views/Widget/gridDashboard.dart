@@ -1,4 +1,4 @@
-import 'package:admin_panel/database/products.dart';
+import 'package:admin_panel/database/database.dart';
 import 'package:admin_panel/views/Widget/chart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
